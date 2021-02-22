@@ -16,15 +16,26 @@ Restart your Home Assistant to complete the installation.
 ## Configuration
 
   \- platform: weathersummary
+
     name: temperature_max_next_24
+
     method: maximum
+
     device_class: temperature
-    weather: weather.openweathermap
-  \- platform: weathersummary
-    name: rain_next_24
-    method: sum
-    device_class: rain
+
     weather: weather.openweathermap
 
+  \- platform: weathersummary
+
+    name: rain_next_24
+
+    method: sum
+
+    device_class: rain
+
+    weather: weather.openweathermap
+
+
 method: maximum, minimum, sum
+
 weather: points to a weather entity
