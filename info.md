@@ -5,7 +5,7 @@
 To install this integration you will need to add this as a custom repository in HACS.
 Open HACS page, then click integrations
 Click the three dots top right, select Custom repositories
-URL enter <https://github.com/cestlagalere/weathersummarycd ..\we >
+URL enter <https://github.com/cestlagalere/weathersummary>
 Catgory select Integration
 click Add
 
