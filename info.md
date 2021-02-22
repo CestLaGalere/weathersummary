@@ -28,7 +28,6 @@ Restart your Home Assistant to complete the installation.
       device_class: rain
       weather: weather.openweathermap
 
-
 method: maximum, minimum, sum
 
 weather: points to a weather entity
