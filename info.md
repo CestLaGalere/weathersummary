@@ -1,28 +1,30 @@
-# EauFrance station data
+# Weathersummary component
 
 ## Installation
 
-To install this integration you will need to add <https://github.com/cestlagalere/eaufrance> as a custom repository in HACS.
+To install this integration you will need to add this as a custom repository in HACS.
+Open HACS page, then click integrations
+Click the three dots top right, select Custom repositories
+URL enter <https://github.com/cestlagalere/weathersummarycd ..\we >
+Catgory select Integration
+click Add
 
-Once installed you will be able to install the integration from the HACS integrations page.
+Once installed you will then be able to install this integration from the HACS integrations page.
 
 Restart your Home Assistant to complete the installation.
 
 ## Configuration
 
-Go to Configuration -> Integrations and click the plus sign to add a Eaufrance integration. Search for Eaufrance and click add.
+  \- platform: weathersummary
+    name: temperature_max_next_24
+    method: maximum
+    device_class: temperature
+    weather: weather.openweathermap
+  \- platform: weathersummary
+    name: rain_next_24
+    method: sum
+    device_class: rain
+    weather: weather.openweathermap
 
-add elements to yaml sensor section:
-  \- platform: eaufrance
-    name: montauban_flow
-    device_class: Q
-    device_id: O494101001
-
-device_class - Q (Quantity of water - in m3 / s) H - river height (m)
-device_id: id of the station
-see either
-<https://hubeau.eaufrance.fr/api/v1/hydrometrie/referentiel/sites>
-or the map at:
-<https://www.vigicrues.gouv.fr/niv2-bassin.php?CdEntVigiCru=25>
-
-<https://hubeau.eaufrance.fr/api/v1/hydrometrie/api-docs>
+method: maximum, minimum, sum
+weather: points to a weather entity
