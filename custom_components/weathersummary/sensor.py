@@ -1,11 +1,15 @@
 from datetime import datetime, timedelta, timezone
 import logging
+from typing import Any, Tuple, List, Mapping, Optional
 
 import voluptuous as vol
 
 from homeassistant.components.sensor import PLATFORM_SCHEMA
 
+from homeassistant.core import HomeAssistant
 import homeassistant.helpers.config_validation as cv
+from homeassistant.config_entries import ConfigEntry
+from homeassistant.helpers.entity_platform import AddEntitiesCallback
 from homeassistant.helpers.entity import Entity
 
 from homeassistant.util import Throttle
@@ -57,7 +61,7 @@ PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend(
 _LOGGER = logging.getLogger(__name__)
 DOMAIN = "weathersummary"
 
-async def async_setup_platform(hass, config, async_add_entities, discovery_info=None):
+async def async_setup_platform(hass: HomeAssistant, config: ConfigEntry, async_add_entities: AddEntitiesCallback, discovery_info=None):
     name = config.get(CONF_NAME)
     device_class = config.get(CONF_DEVICE_CLASS)
     method = config.get(CONF_METHOD)
@@ -70,7 +74,7 @@ async def async_setup_platform(hass, config, async_add_entities, discovery_info=
 
 
 class WeatherSummary(Entity):
-    def __init__(self, name, device_class, method, weather):
+    def __init__(self, name : str, device_class : str, method : str, weather : str) -> None:
         """Initialize the sensor."""
         self._name = name
         self._device_class = device_class
@@ -78,9 +82,12 @@ class WeatherSummary(Entity):
         self._weather = weather
         self._state = None
         self._unit_of_measurement = ""
+        self._attributes = {
+            ATTR_ATTRIBUTION: ATTRIBUTION.format(self._weather)
+        }
 
     @property
-    def name(self):
+    def name(self) -> str:
         return self._name
 
     @property
@@ -88,16 +95,16 @@ class WeatherSummary(Entity):
         return self._state
 
     @property
-    def unit_of_measurement(self):
+    def unit_of_measurement(self) -> str:
         return self._unit_of_measurement
 
     @property
-    def device_state_attributes(self):
-         return {ATTR_ATTRIBUTION: ATTRIBUTION.format(self._weather)}
+    def extra_state_attributes(self) -> Mapping[str, Any]:
+        return self._attributes
 
 
     @Throttle(MIN_TIME_BETWEEN_UPDATES)
-    def update(self):
+    def update(self) -> None:
         """Get the latest data from Mobile Alerts and updates the state."""
 
         weather = self.hass.states.get(self._weather)

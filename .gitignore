@@ -1,6 +1,7 @@
 
 # vscode
-workspace.code-workspace
+*.code-workspace
+.vscode/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
